@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pos/counter.dart';
+import 'package:pos/models.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +10,44 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-final List<String> names = ["Antony", "mike", "Joseph"];
+final List<Stocks> names = [
+  Stocks(
+    serial: "dec001",
+    name: "soda",
+    qty: 10,
+    price: 30.0,
+    cost: 25.0,
+    image:
+        "https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D",
+  ),
+  Stocks(
+    serial: "dec001",
+    name: "soda",
+    qty: 10,
+    price: 30.0,
+    cost: 25.0,
+    image:
+        "https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D",
+  ),
+  Stocks(
+    serial: "dec001",
+    name: "soda",
+    qty: 10,
+    price: 30.0,
+    cost: 25.0,
+    image:
+        "https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D",
+  ),
+  Stocks(
+    serial: "dec001",
+    name: "soda",
+    qty: 10,
+    price: 30.0,
+    cost: 25.0,
+    image:
+        "https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D",
+  )
+];
 
 class _HomePageState extends State<HomePage> {
   @override
@@ -45,7 +83,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomeCard extends StatelessWidget {
-  final List<String> names;
+  final List<Stocks> names;
   const HomeCard({
     super.key,
     required this.title,
@@ -63,13 +101,7 @@ class HomeCard extends StatelessWidget {
         children: [
           Text(title),
           SizedBox(
-            width: 50,
-          ),
-          Image(
-            image: NetworkImage(
-                'https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D'),
-            height: 60.0,
-            width: 60.0,
+            width: 10,
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.black87),
