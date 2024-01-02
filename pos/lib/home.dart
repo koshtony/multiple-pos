@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pos/counter.dart';
+import 'package:pos/sales.dart';
 import 'package:pos/models.dart';
 import 'package:sidebarx/sidebarx.dart';
 

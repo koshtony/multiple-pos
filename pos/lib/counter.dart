@@ -2,107 +2,204 @@ import 'package:flutter/material.dart';
 import 'package:pos/home.dart';
 import 'package:pos/models.dart';
 
-class ItemCounter extends StatefulWidget {
-  const ItemCounter({super.key, required this.names});
-
-  final List<Stocks> names;
+class CounterPage extends StatefulWidget {
+  const CounterPage({super.key});
 
   @override
-  State<ItemCounter> createState() => _ItemCounterState();
+  State<CounterPage> createState() => _CounterPageState();
 }
 
-class _ItemCounterState extends State<ItemCounter> {
+class _CounterPageState extends State<CounterPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amberAccent,
-        title: Text("counter"),
-      ),
-      backgroundColor: Colors.grey,
-      body: Column(
-        children: [
-          const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextField(
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.white),
-                  )),
-            ),
-          ),
-          const SizedBox(height: 25),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Text(
-              "Item List",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.orangeAccent,
-              ),
-            ),
-          ),
-          const SizedBox(height: 25),
-          Expanded(
-              child: ListView.builder(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+            child: Column(
+          children: [
+            categoryMenu(
+                name: "phillips bulb", desc: "phillips bulb 100 wats", qty: 10),
+            Container(
+                height: 100,
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: ListView(
                   scrollDirection: Axis.horizontal,
-                  itemCount: names.length,
-                  itemBuilder: ((context, index) {
-                    return Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(20)),
-                        margin: const EdgeInsets.only(left: 25),
-                        padding: const EdgeInsets.all(25),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image(
-                              image:
-                                  NetworkImage(names[index].image.toString()),
-                              height: 140,
-                            ),
-                            Text(names[index].name.toString()),
-                            SizedBox(
-                                width: 150,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Ksh ${names[index].price.toString()}")
-                                  ],
-                                )),
-                          ],
-                        ));
-                  }))),
-          SizedBox(
-            height: 30.0,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("latest items"),
+                    categoryItemMenu(
+                        name: "bulb",
+                        image:
+                            'https://images.unsplash.com/photo-1532007271951-c487760934ae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpZ2h0JTIwYnVsYnxlbnwwfHwwfHx8MA%3D%3D',
+                        qty: 10,
+                        isClicked: true),
+                    categoryItemMenu(
+                        name: "bulb",
+                        image:
+                            'https://images.unsplash.com/photo-1532007271951-c487760934ae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpZ2h0JTIwYnVsYnxlbnwwfHwwfHx8MA%3D%3D',
+                        qty: 10,
+                        isClicked: false),
                   ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+                )),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 4.0,
+                    crossAxisSpacing: 4.0),
+                padding: const EdgeInsets.all(8.0),
+                itemCount: names.length,
+                itemBuilder: ((context, index) {
+                  return products(
+                      image: names[index].image,
+                      name: names[index].name,
+                      category: names[index].name,
+                      price: names[index].price);
+                }),
+              ),
+            )
+          ],
+        ))
+      ],
     );
   }
+
+  Widget categoryMenu(
+      {required String name, required String desc, required int qty}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(name,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+            const SizedBox(height: 8),
+            Text(desc,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                )),
+            const SizedBox(height: 8),
+            Text(qty.toString() + " pcs",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ))
+          ],
+        ),
+        Expanded(flex: 1, child: Container(width: double.infinity)),
+        Expanded(flex: 1, child: searchItem())
+      ],
+    );
+  }
+
+  Widget searchItem() {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        width: double.infinity,
+        height: 40,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.black12,
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.search, color: Colors.white),
+            SizedBox(width: 10),
+            Text("search", style: TextStyle(color: Colors.white))
+          ],
+        ));
+  }
+}
+
+Widget categoryItemMenu(
+    {required String name,
+    required int qty,
+    required String image,
+    required bool isClicked}) {
+  return Container(
+    width: 180,
+    margin: const EdgeInsets.only(right: 26),
+    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: const Color.fromARGB(255, 7, 7, 7),
+        border: isClicked
+            ? Border.all(color: Colors.lightGreen, width: 3)
+            : Border.all(color: Colors.black87, width: 3)),
+    child: Row(children: [
+      Text(name,
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold)),
+      const SizedBox(width: 8.0),
+      Text(qty.toString(),
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold)),
+      const SizedBox(height: 8.0),
+      Image.network(image, width: 30)
+    ]),
+  );
+}
+
+Widget products({
+  required String image,
+  required String name,
+  required String category,
+  required double price,
+}) {
+  return Container(
+      margin: const EdgeInsets.only(right: 20, bottom: 20),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        color: const Color.fromARGB(255, 33, 30, 33),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 80,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(
+                  image: NetworkImage(image),
+                  fit: BoxFit.cover,
+                )),
+          ),
+          const SizedBox(height: 10),
+          Text(name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              )),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Ksh ${price.toString()}",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  )),
+              Text(category,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ))
+            ],
+          )
+        ],
+      ));
 }
