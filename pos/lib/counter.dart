@@ -42,8 +42,9 @@ class _CounterPageState extends State<CounterPage> {
                   ],
                 )),
             Expanded(
+              flex: 5,
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     mainAxisSpacing: 4.0,
                     crossAxisSpacing: 4.0),
@@ -57,9 +58,102 @@ class _CounterPageState extends State<CounterPage> {
                       price: names[index].price);
                 }),
               ),
-            )
+            ),
           ],
-        ))
+        )),
+        Expanded(
+            child: Column(children: [
+          const Text("Order Items",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.white)),
+          const SizedBox(height: 20),
+          Expanded(
+              child: Container(
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      color: Colors.black26),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Sub Total ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              )),
+                          Text("Ksh ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ))
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("VAT ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              )),
+                          Text("Ksh ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ))
+                        ],
+                      ),
+                      Container(
+                          margin: const EdgeInsets.symmetric(vertical: 20),
+                          height: 2,
+                          width: double.infinity,
+                          color: Colors.white24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Total ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              )),
+                          Text("Ksh ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ))
+                        ],
+                      )
+                    ],
+                  ))),
+          Expanded(
+            child: ListView(children: [
+              soldMenu(
+                  name: "soda",
+                  image:
+                      "https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D",
+                  qty: "4",
+                  price: "400"),
+              soldMenu(
+                  name: "soda",
+                  image:
+                      "https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D",
+                  qty: "4",
+                  price: "400"),
+              soldMenu(
+                  name: "soda",
+                  image:
+                      "https://images.unsplash.com/photo-1561758033-48d52648ae8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29jYSUyMGNvbGF8ZW58MHx8MHx8fDA%3D",
+                  qty: "4",
+                  price: "400")
+            ]),
+          )
+        ]))
       ],
     );
   }
@@ -169,7 +263,7 @@ Widget products({
           Container(
             height: 80,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(36),
                 image: DecorationImage(
                   image: NetworkImage(image),
                   fit: BoxFit.cover,
@@ -200,6 +294,61 @@ Widget products({
                   ))
             ],
           )
+        ],
+      ));
+}
+
+Widget soldMenu(
+    {required String name,
+    required String image,
+    required String qty,
+    required String price}) {
+  return Container(
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: Colors.black45,
+      ),
+      child: Row(
+        children: [
+          Container(
+              height: 60,
+              width: 60,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                      image: NetworkImage(image), fit: BoxFit.cover))),
+          const SizedBox(width: 10),
+          Expanded(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  price,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white10,
+                  ),
+                )
+              ])),
+          Text('$qty x',
+              style: const TextStyle(
+                  fontSize: 6,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white))
         ],
       ));
 }
