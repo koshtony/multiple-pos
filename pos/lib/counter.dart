@@ -43,21 +43,38 @@ class _CounterPageState extends State<CounterPage> {
                 )),
             Expanded(
               flex: 5,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 4.0,
-                    crossAxisSpacing: 4.0),
-                padding: const EdgeInsets.all(8.0),
-                itemCount: names.length,
-                itemBuilder: ((context, index) {
-                  return products(
-                      image: names[index].image,
-                      name: names[index].name,
-                      category: names[index].name,
-                      price: names[index].price);
-                }),
-              ),
+              child: FutureBuilder(
+                  future: names,
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      const Text("No data");
+                    } else if (snapshot.hasData) {
+                      return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 4,
+                                mainAxisSpacing: 4.0,
+                                crossAxisSpacing: 4.0),
+                        padding: const EdgeInsets.all(8.0),
+                        itemCount: snapshot.data?.length ?? 0,
+                        itemBuilder: ((context, index) {
+                          return products(
+                              image: snapshot.data![index].image,
+                              name: snapshot.data![index].name,
+                              category: snapshot.data![index].name,
+                              price: snapshot.data![index].price);
+                        }),
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text("Data cannot be loaded");
+                    }
+
+                    return Container(
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }),
             ),
           ],
         )),

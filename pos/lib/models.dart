@@ -13,15 +13,4 @@ class Stocks {
       required this.price,
       required this.cost,
       required this.image});
-
-  Map toJson() {
-    return {
-      "serial": serial,
-      "name": name,
-      "qty": qty,
-      "price": price,
-      "cost": cost,
-      "image": image,
-    };
-  }
 }

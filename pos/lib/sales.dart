@@ -6,7 +6,7 @@ import 'package:pos/models.dart';
 class ItemCounter extends StatefulWidget {
   const ItemCounter({super.key, required this.names});
 
-  final List<Stocks> names;
+  final Future<List<Stocks>> names;
 
   @override
   State<ItemCounter> createState() => _ItemCounterState();
